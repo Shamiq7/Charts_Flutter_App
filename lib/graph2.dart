@@ -25,6 +25,8 @@ class _Graph2State extends State<Graph2> {
       appBar: AppBar(title: Text('PIE CHART'), centerTitle: true),
       body: Column(
         children: [
+          //
+          //
           Container(
             margin: EdgeInsets.all(10),
             child: Center(
