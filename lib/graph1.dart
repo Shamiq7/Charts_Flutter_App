@@ -41,6 +41,7 @@ class _Graph1State extends State<Graph1> {
           children: [
             Container(
               margin: EdgeInsets.all(10),
+              //
               child: SfCartesianChart(
                 legend: Legend(isVisible: true, isResponsive: true),
                 title: ChartTitle(text: 'Sales Data'),
