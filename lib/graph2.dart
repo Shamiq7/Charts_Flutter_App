@@ -24,6 +24,8 @@ class _Graph2State extends State<Graph2> {
     return Scaffold(
       appBar: AppBar(title: Text('PIE CHART'), centerTitle: true),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           //
           //
@@ -31,8 +33,22 @@ class _Graph2State extends State<Graph2> {
             margin: EdgeInsets.all(10),
             child: Center(
               child: SfCircularChart(
+                palette: [
+                  Colors.lightGreen,
+                  Colors.blueGrey,
+                  Colors.blue,
+                  Colors.purple,
+                  Colors.yellow,
+                ],
                 series: [
                   PieSeries<PieData, String>(
+                    explode: true,
+                    // explodeAll: true,
+                    explodeIndex: 1,
+                    radius: '150',
+
+                    // strokeWidth: 2,
+                    // strokeColor: Colors.white,
                     dataSource: charData,
                     xValueMapper: (PieData data, _) => data.xdata,
                     yValueMapper: (PieData data, _) => data.ydata,

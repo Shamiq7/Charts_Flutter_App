@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graphs_app_flutter/graph1.dart';
+import 'package:graphs_app_flutter/SF1.dart';
 import 'package:graphs_app_flutter/graph2.dart';
 
 void main() {
@@ -12,6 +12,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Graph2());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: Sf1());
   }
 }
