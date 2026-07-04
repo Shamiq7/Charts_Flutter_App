@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphs_app_flutter/model.dart';
 import 'package:hive/hive.dart';
 // \
 // App Starts
@@ -25,6 +26,7 @@ class Hivedb extends StatefulWidget {
 class _HivedbState extends State<Hivedb> {
   TextEditingController fieldcontroller = TextEditingController();
   String namevalue = '';
+  final Keyvalue = 'Key';
   @override
   void initState() {
     // TODO: implement initState
@@ -35,7 +37,20 @@ class _HivedbState extends State<Hivedb> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Hive Database'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('Hive Database'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              var box = Hive.box(Keyvalue);
+              box.clear();
+              setState(() {});
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -70,22 +85,44 @@ class _HivedbState extends State<Hivedb> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  var item = fieldcontroller.text.toString();
-                  var box = Hive.box('Key');
+                  Data item = Data(
+                    age: 21,
+                    name: fieldcontroller.text,
+                    surname: 'max',
+                  );
+
+                  // var box = Hive.box(Keyvalue);
+                  Box<Data> box = Hive.box<Data>(Keyvalue);
                   box.put('keyname', item);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(seconds: 2),
+                      content: Text('Item Saved'),
+                    ),
+                  );
+                  setState(() {});
                 },
                 child: Text('Save'),
               ),
+              SizedBox(width: 10),
               ElevatedButton(
                 onPressed: () {
-                  var boxes = Hive.box('Key');
-                  var name = boxes.get(
-                    'keyname',
-                    defaultValue: 'No value found',
-                  );
-                  setState(() {
-                    namevalue = name;
-                  });
+                  // var boxes = Hive.box(Keyvalue);
+                  Box<Data> boxes = Hive.box<Data>(Keyvalue);
+                  // var name = boxes.get(
+                  //   'keyname',
+                  //   defaultValue: 'No value found',
+                  // );
+                  Data? person = boxes.get('keyname');
+                  if (person != null) {
+                    setState(() {
+                      namevalue =
+                          '${person.name} ${person.surname} ${person.age} ';
+                    });
+                  } else {
+                    namevalue = 'Value not found';
+                    setState(() {});
+                  }
                 },
                 child: Text('Load'),
               ),
