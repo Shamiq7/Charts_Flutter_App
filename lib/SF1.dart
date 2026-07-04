@@ -20,9 +20,9 @@ class _Sf1State extends State<Sf1> {
   TextEditingController itemcontroller = TextEditingController();
   TextEditingController intcontroller = TextEditingController();
   TextEditingController listcotroller = TextEditingController();
-  var nameVal = 'no  string value saved';
-  var intVal = 'no int value';
-  var listVal = 'no list value saved';
+  var nameVal = '';
+  var intVal = '';
+  var listVal = '';
   @override
   void initState() {
     // TODO: implement initState
@@ -33,7 +33,20 @@ class _Sf1State extends State<Sf1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Shared Preference'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('Shared Preference'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () async {
+              var prefs = await SharedPreferences.getInstance();
+              await prefs.clear();
+              getValue();
+            },
+            icon: Icon(Icons.clear_rounded),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,15 +77,31 @@ class _Sf1State extends State<Sf1> {
               ),
             ),
             SizedBox(height: 5),
-            ElevatedButton(
-              onPressed: () async {
-                var name = itemcontroller.text.toString();
-                var pref = await SharedPreferences.getInstance();
-                pref.setString("name", name);
-                getValue();
-              },
-              child: Text('Save'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    var name = itemcontroller.text.toString();
+                    var pref =
+                        await SharedPreferences.getInstance(); //opeaned a book and named it pref
+                    pref.setString("name", name); //
+                    getValue();
+                  },
+                  child: Text('Save'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () async {
+                    var pref = await SharedPreferences.getInstance();
+                    await pref.remove("name");
+                    getValue();
+                  },
+                  child: Text('remove'),
+                ),
+              ],
             ),
+
             SizedBox(height: 5),
             Text(nameVal),
             //
@@ -98,15 +127,30 @@ class _Sf1State extends State<Sf1> {
               ),
             ),
             SizedBox(height: 5),
-            ElevatedButton(
-              onPressed: () async {
-                int intiger = int.parse(intcontroller.text);
-                var pref = await SharedPreferences.getInstance();
-                pref.setInt("int", intiger);
-                getValue();
-              },
-              child: Text('Save'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    int intiger = int.parse(intcontroller.text);
+                    var pref = await SharedPreferences.getInstance();
+                    pref.setInt("int", intiger);
+                    getValue();
+                  },
+                  child: Text('Save'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () async {
+                    var pref = await SharedPreferences.getInstance();
+                    await pref.remove("int");
+                    getValue();
+                  },
+                  child: Text('remove'),
+                ),
+              ],
             ),
+
             SizedBox(height: 5),
             Text(intVal),
             //
@@ -131,15 +175,29 @@ class _Sf1State extends State<Sf1> {
               ),
             ),
             SizedBox(height: 5),
-            ElevatedButton(
-              onPressed: () async {
-                String list = listcotroller.text;
-                List<String> fruits = list.split(',');
-                var pref = await SharedPreferences.getInstance();
-                pref.setStringList("list", fruits);
-                getValue();
-              },
-              child: Text('Save'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    String list = listcotroller.text;
+                    List<String> fruits = list.split(',');
+                    var pref = await SharedPreferences.getInstance();
+                    pref.setStringList("list", fruits);
+                    getValue();
+                  },
+                  child: Text('Save'),
+                ),
+                SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () async {
+                    var pref = await SharedPreferences.getInstance();
+                    await pref.remove("list");
+                    getValue();
+                  },
+                  child: Text('remove'),
+                ),
+              ],
             ),
             SizedBox(height: 5),
             Text(listVal),
