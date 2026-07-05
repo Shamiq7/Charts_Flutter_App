@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graphs_app_flutter/SF1.dart';
-import 'package:graphs_app_flutter/graph2.dart';
 import 'package:graphs_app_flutter/hivedb.dart';
 import 'package:graphs_app_flutter/model.dart';
 import 'package:hive_flutter/adapters.dart';

@@ -55,7 +55,7 @@ class _HivedbState extends State<Hivedb> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
               width: 300,
               child: TextField(
                 controller: fieldcontroller,
@@ -125,6 +125,22 @@ class _HivedbState extends State<Hivedb> {
                   }
                 },
                 child: Text('Load'),
+              ),
+              SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {
+                  // var boxes = Hive.box(Keyvalue);
+                  Box<Data> boxes = Hive.box<Data>(Keyvalue);
+                  // var name = boxes.get(
+                  //   'keyname',
+                  //   defaultValue: 'No value found',
+                  // );
+                  boxes.delete('keyname');
+                  setState(() {
+                    namevalue = 'value deleted';
+                  });
+                },
+                child: Text('Delete'),
               ),
             ],
           ),

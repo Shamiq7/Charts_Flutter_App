@@ -52,7 +52,7 @@ class _Sf1State extends State<Sf1> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Container(
+              child: SizedBox(
                 width: 300,
                 child: TextField(
                   controller: itemcontroller,
@@ -108,7 +108,7 @@ class _Sf1State extends State<Sf1> {
             //
             //
             SizedBox(height: 5),
-            Container(
+            SizedBox(
               width: 300,
               child: TextField(
                 controller: intcontroller,
@@ -157,7 +157,7 @@ class _Sf1State extends State<Sf1> {
             //
             //
             SizedBox(height: 5),
-            Container(
+            SizedBox(
               width: 300,
               child: TextField(
                 controller: listcotroller,
@@ -216,7 +216,7 @@ class _Sf1State extends State<Sf1> {
       'int',
     ); // will see if our key has some value, if yes give it to getName var
     var getList = prefs.getStringList('list');
-    nameVal = getName != null ? getName : 'No value saved';
+    nameVal = getName ?? 'No value saved';
 
     intVal = getint != null ? getint.toString() : 'no int value';
     listVal = getList?.join(',') ?? 'no  list value saved';
